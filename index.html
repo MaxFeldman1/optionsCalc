@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="jquery.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="master.css">
+    <meta charset="utf-8">
+    <title>Options calculator</title>
+  </head>
+  <body>
+    <h1>Max's Great Options Calculator</h1>
+    <h3><u>Positions</u></h3>
+    <ul id="list"></ul>
+    <button type="button" name="button" id="add">Add Position</button>
+    <button type="button" name="button" id="start">Update Chart</button>
+    <br><br>
+    <div class="inputContainer">
+      X Min: &nbsp;<input type="text" id="xMin" value=""> &nbsp;&nbsp;
+      X Max: &nbsp;<input type="text" id="xMax" value=""> &nbsp;&nbsp;
+      Y Min/Max: &nbsp;<input type="text" id="yExt" value=""> &nbsp;&nbsp;<br><br>
+      X Hash Frequency: &nbsp;<input type="text" id="xFrq" value=""> &nbsp;&nbsp;
+      Y Hash Frequency: &nbsp;<input type="text" id="yFrq" value=""> &nbsp;&nbsp;<br>
+    </div>
+    <div id="chartContainer">
+      <canvas id="chart" width="1500" height="750"></canvas>
+    </div>
+    <script src="main.js" charset="utf-8"></script>
+  </body>
+</html>
