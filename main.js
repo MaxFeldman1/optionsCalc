@@ -127,9 +127,9 @@ function graph(){
   }
 
   for (var i = 0; i < iterations; i++){
-    xPct = i /(iterations-1); //i==0;xPct==0
-    xMath = xPct * (xMax-xMin) + xMin; //xMin
-    yMath = totalVal(xMath);  
+    xPct = i /(iterations-1);
+    xMath = xPct * (xMax-xMin) + xMin;
+    yMath = totalVal(xMath);
     yPct = (yMath+yExtrema)/(2*yExtrema);
     xPos = xPct*canvas.width;
     yPos = canvas.height - yPct*canvas.height;
@@ -157,7 +157,6 @@ function drawHash(xMath, yMath, bool){
 }
 
 chart.mousemove(function(event){
-  console.log("Hallo");
   var offset = chart.offset()
   var xPos = event.clientX-offset.left;
   var yPos = event.clientY-offset.top;
