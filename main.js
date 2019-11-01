@@ -2,11 +2,22 @@ var positions = [];
 var canvas = $("#canvas");
 canvas.width = 1500;
 canvas.height = 750;
-var cursor = $("#chart").get(0).getContext('2d');
+var chart = $("#chart");
+var cursor = chart.get(0).getContext('2d');
 const iterations = 1000;
-var xMax = 8000;
-var xMin = 12000;
-var yExtrema = 10000;
+var xMax = 0;
+var xMin = 0;
+var yExtrema = 0;
+
+//add div to display by cursor while hovering over 
+var hoverBox = $(`<div id="hoverBox">Price:<span class="price"></span>
+Profit:<span class="profit"></span></div>`);
+$("#chartContainer").append(hoverBox);
+hoverBox = $("#hoverBox")[0];
+$(hoverBox).css({position:"absolute", marginRight:0, marginLeft:0, hidden:true});
+$(hoverBox).css('background-color', '#ffff88');
+$(hoverBox).hide();
+
 var Position = function (cp, ls, quantity, strike, premium){
   var pos = {};
   pos.cp = cp;
@@ -110,14 +121,15 @@ function graph(){
   //Add hash marks along the axes
   for (var i = xMin; i < xMax; i+=xFrequency)
     drawHash(i, yMid, true);
-  for (var i = yFrequency; i < yExtrema; i+=yFrequency){
+  for (var i = yFrequency; i <= yExtrema; i+=yFrequency){
     drawHash(xMid, i, false);
     drawHash(xMid, -i, false);
   }
+
   for (var i = 0; i < iterations; i++){
-    xPct = i /(iterations-1);
-    xMath = xPct * (xMax-xMin) + xMin;
-    yMath = totalVal(xMath);
+    xPct = i /(iterations-1); //i==0;xPct==0
+    xMath = xPct * (xMax-xMin) + xMin; //xMin
+    yMath = totalVal(xMath);  
     yPct = (yMath+yExtrema)/(2*yExtrema);
     xPos = xPct*canvas.width;
     yPos = canvas.height - yPct*canvas.height;
@@ -143,3 +155,16 @@ function drawHash(xMath, yMath, bool){
   cursor.lineTo(xPos+ (bool? 0: -10), yPos + (bool? 10: 0));
   cursor.stroke()
 }
+
+chart.mousemove(function(event){
+  console.log("Hallo");
+  var offset = chart.offset()
+  var xPos = event.clientX-offset.left;
+  var yPos = event.clientY-offset.top;
+  var xMath = (xPos/canvas.width)*(xMax-xMin) + xMin;
+  var yMath = totalVal(xMath)
+  $(hoverBox).children('.price')[0].innerHTML = xMath.toPrecision(4);
+  $(hoverBox).children('.profit')[0].innerHTML = yMath.toPrecision(4);
+  $(hoverBox).css({left:event.clientX, top:event.clientY});
+  $(hoverBox).show();
+});
