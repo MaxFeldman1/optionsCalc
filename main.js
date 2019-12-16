@@ -98,8 +98,8 @@ function graph(){
   xMax = parseFloat($("#xMax")[0].value);
   xMin = parseFloat($("#xMin")[0].value);
   yExtrema = parseFloat($("#yExt")[0].value);
-  var xFrequency = parseInt($("#xFrq")[0].value);
-  var yFrequency = parseInt($("#yFrq")[0].value);
+  var xFrequency = parseFloat($("#xFrq")[0].value);
+  var yFrequency = parseFloat($("#yFrq")[0].value);
   const xMid = (xMax-xMin)/2 + xMin;
   const yMid = 0;
   //clear the canvas
